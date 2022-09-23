@@ -53,7 +53,7 @@ class FixtureRunner():
                     break
 
             if isinstance(cur_obj, str) or isinstance(cur_obj, int):
-                value = re.sub('\$\{(.*?)\}', str(cur_obj), value)
+                value = re.sub('\$\{(.*?)\}', str(cur_obj), value, count=1)
             else:
                 print("%s does not resolve to a string or integer" % value)
 

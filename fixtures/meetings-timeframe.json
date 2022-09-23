@@ -23,6 +23,12 @@
             "method": "get"
         },
         {
+            "name": "in-between",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[15].start_time}&timeframe_end=${all-meetings.data[5].start_time}",
+            "method": "get"
+        },
+        {
             "name": "all-ongoing",
             "path": "meetings",
             "query": "ongoing=true",
@@ -38,6 +44,12 @@
             "name": "before-ongoing",
             "path": "meetings",
             "query": "timeframe_end=${all-meetings.data[5].start_time}&ongoing=true",
+            "method": "get"
+        },
+        {
+            "name": "in-between-ongoing",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[5].start_time}&timeframe_end=${all-meetings.data[15].start_time}&ongoing=true",
             "method": "get"
         }
     ]
