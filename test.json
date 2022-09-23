@@ -1,0 +1,16 @@
+{
+    "fixtures": [
+        {
+            "name": "room-list",
+            "path": "rooms",
+            "query": "",
+            "method": "get"
+        },
+        {
+            "name": "meetings",
+            "path": "meetings",
+            "query": "room=${room-list.data[0].name}",
+            "method": "get"
+        }
+    ]
+}

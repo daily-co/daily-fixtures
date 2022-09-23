@@ -1,0 +1,20 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "args": ["staging", "test.json"],
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "DAILY_API_KEY": "e6fdc677f3583e02b85bb4719a2b111565ec7b353c4a99af7cd2be299c898874"
+      }
+    }
+  ]
+}
