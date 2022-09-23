@@ -1,0 +1,44 @@
+{
+    "fixtures": [
+        {
+            "name": "domain",
+            "path": "",
+            "method": "get"
+        },
+        {
+            "name": "all-meetings",
+            "path": "meetings",
+            "method": "get"
+        },
+        {
+            "name": "after",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[5].start_time}",
+            "method": "get"
+        },
+        {
+            "name": "before",
+            "path": "meetings",
+            "query": "timeframe_end=${all-meetings.data[5].start_time}",
+            "method": "get"
+        },
+        {
+            "name": "all-ongoing",
+            "path": "meetings",
+            "query": "ongoing=true",
+            "method": "get"
+        },
+        {
+            "name": "after-ongoing",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[5].start_time}&ongoing=true",
+            "method": "get"
+        },
+        {
+            "name": "before-ongoing",
+            "path": "meetings",
+            "query": "timeframe_end=${all-meetings.data[5].start_time}&ongoing=true",
+            "method": "get"
+        }
+    ]
+}

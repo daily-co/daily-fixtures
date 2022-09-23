@@ -18,12 +18,14 @@ class FixtureRunner():
 
     environment = None
     fixture_file = None
+    output_file = None
 
     fixture_values = {}
 
-    def __init__(self, environment, fixture_file):
+    def __init__(self, environment, fixture_file, output_file):
         self.environment = environment
         self.fixture_file = fixture_file
+        self.output_file = output_file
         pass
 
     def start(self):
@@ -50,12 +52,10 @@ class FixtureRunner():
                     print("%s not found in %s" % (field, cur_obj))
                     break
 
-            if isinstance(cur_obj, str):
-                print(value)
-                value = re.sub('\$\{(.*?)\}', cur_obj, value)
-                print(value)
+            if isinstance(cur_obj, str) or isinstance(cur_obj, int):
+                value = re.sub('\$\{(.*?)\}', str(cur_obj), value)
             else:
-                print("%s does not resolve to a string" % value)
+                print("%s does not resolve to a string or integer" % value)
 
         return value
 
@@ -70,15 +70,21 @@ class FixtureRunner():
                 'Authorization': 'Bearer %s' % os.environ['DAILY_API_KEY']
             }
             url = self.prefix + 'v1/' + fixture['path']
-            if fixture['query']:
+            if 'query' in fixture:
                 url += '?' + fixture['query']
 
             if fixture['method'] == 'get':
                 print("get %s" % url)
                 res = requests.get(url, headers=headers)
                 print("status: %d" % res.status_code)
+                if (res.status_code != 200):
+                    print("Error: %s" % res.text)
+                    exit(1)
                 self.fixture_values[fixture['name']] = res.json()
-                print(json.dumps(res.json(), indent=2))
+
+    def save_results(self):
+        f = open(self.output_file, 'w')
+        json.dump(self.fixture_values, f, indent=2)
 
     def run(self):
         self.start()
@@ -86,6 +92,7 @@ class FixtureRunner():
             self.set_properties(self.fixture['properties'])
 
         self.run_fixtures(self.fixture['fixtures'])
+        self.save_results()
         pass
 
 
@@ -95,5 +102,7 @@ if __name__ == "__main__":
                         help='The environment (local, staging or prod)')
     parser.add_argument('file', type=str,
                         help='The fixture file')
+    parser.add_argument('output_file', type=str,
+                        help='The output file')
     args = parser.parse_args()
-    FixtureRunner(args.environment, args.file).run()
+    FixtureRunner(args.environment, args.file, args.output_file).run()
