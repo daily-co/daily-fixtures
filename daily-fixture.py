@@ -38,6 +38,10 @@ class FixtureRunner():
         pass
 
     def parse_value_string(self, value):
+        # TODO: make this recursive with object types
+        if type(value) != str:
+            return value
+
         matches = re.findall('\$\{(.*?)\}', value)
         for match in matches:
             fields = match.split(".")
@@ -77,6 +81,15 @@ class FixtureRunner():
                 print("get %s" % url)
                 res = requests.get(url, headers=headers)
                 print("status: %d" % res.status_code)
+                if (res.status_code != 200):
+                    print("Error: %s" % res.text)
+                    exit(1)
+                self.fixture_values[fixture['name']] = res.json()
+            elif fixture['method'] == 'post':
+                print("post %s" % url)
+                res = requests.post(url, headers=headers, json=fixture['data'])
+                print("status: %d" % res.status_code)
+                print(res.text)
                 if (res.status_code != 200):
                     print("Error: %s" % res.text)
                     exit(1)

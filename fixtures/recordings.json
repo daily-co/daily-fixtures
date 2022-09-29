@@ -1,0 +1,21 @@
+{
+    "fixtures": [
+        {
+            "name": "recordings",
+            "path": "recordings",
+            "method": "get"
+        },
+        {
+            "name": "path",
+            "path": "recordings/${recordings.data[0].id}/access-link",
+            "method": "get"
+        },
+	{
+	},
+	{
+	    "name": "path-missing-room",
+	    "path": "recordings/xxxxx/access-link",
+	    "method": "get"
+	}
+    ]
+}
