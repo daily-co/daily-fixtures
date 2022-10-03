@@ -3,7 +3,7 @@ import json
 import os
 import re
 import requests
-from sys import prefix
+from sys import prefix, stdin
 
 
 class FixtureRunner():
@@ -22,24 +22,32 @@ class FixtureRunner():
 
     fixture_values = {}
 
-    def __init__(self, environment, fixture_file, output_file):
+    def __init__(self, environment, fixture_file, output_file, verbose):
         self.environment = environment
         self.fixture_file = fixture_file
         self.output_file = output_file
+        self.verbose = verbose
         pass
 
     def start(self):
         self.prefix = self.prefixes[self.environment]
 
-        f = open(self.fixture_file)
-        self.fixture = json.load(f)
+        if self.fixture_file:
+            f = open(self.fixture_file)
+            self.fixture = json.load(f)
+        else:
+            self.fixture = json.load(stdin)
 
     def set_properties(self):
         pass
 
     def parse_value_string(self, value):
-        # TODO: make this recursive with object types
-        if type(value) != str:
+        if type(value) == dict:
+            new_dict = {}
+            for key in value:
+                new_dict[key] = self.parse_value_string(value[key])
+            return new_dict
+        elif type(value) != str:
             return value
 
         matches = re.findall('\$\{(.*?)\}', value)
@@ -53,13 +61,13 @@ class FixtureRunner():
                 elif field in cur_obj:
                     cur_obj = cur_obj[field]
                 else:
-                    print("%s not found in %s" % (field, cur_obj))
+                    self.log("%s not found in %s" % (field, cur_obj))
                     break
 
             if isinstance(cur_obj, str) or isinstance(cur_obj, int):
                 value = re.sub('\$\{(.*?)\}', str(cur_obj), value, count=1)
             else:
-                print("%s does not resolve to a string or integer" % value)
+                self.log("%s does not resolve to a string or integer" % value)
 
         return value
 
@@ -78,26 +86,40 @@ class FixtureRunner():
                 url += '?' + fixture['query']
 
             if fixture['method'] == 'get':
-                print("get %s" % url)
+                self.log("get %s" % url)
                 res = requests.get(url, headers=headers)
-                print("status: %d" % res.status_code)
-                if (res.status_code != 200):
-                    print("Error: %s" % res.text)
-                    exit(1)
-                self.fixture_values[fixture['name']] = res.json()
+                self.add_result(res, fixture)
             elif fixture['method'] == 'post':
-                print("post %s" % url)
+                self.log("post %s with data %s" %
+                      (url, json.dumps(fixture['data'])))
                 res = requests.post(url, headers=headers, json=fixture['data'])
-                print("status: %d" % res.status_code)
-                print(res.text)
-                if (res.status_code != 200):
-                    print("Error: %s" % res.text)
-                    exit(1)
-                self.fixture_values[fixture['name']] = res.json()
+                self.add_result(res, fixture)
+
+    def add_result(self, res, fixture):
+        self.log("status: %d" % res.status_code)
+        if (res.status_code != 200):
+            self.log("Error: %s" % res.text)
+            self.fixture_values[fixture['name']] = {
+                'error': res.status_code,
+                'text': res.text
+            }
+        else:
+            self.fixture_values[fixture['name']] = res.json()
 
     def save_results(self):
-        f = open(self.output_file, 'w')
-        json.dump(self.fixture_values, f, indent=2)
+        self.log("Saving results %s" % self.output_file)
+        if self.output_file:
+            f = open(self.output_file, 'w')
+            json.dump(self.fixture_values, f, indent=2)
+        else:
+            print(json.dumps(self.fixture_values, indent=2))
+
+    def log(self, s):
+        if self.verbose:
+            self.log(s)
+
+    def log_error(self, e):
+        pass
 
     def run(self):
         self.start()
@@ -113,9 +135,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Daily fixtures library')
     parser.add_argument('environment', type=str,
                         help='The environment (local, staging or prod)')
-    parser.add_argument('file', type=str,
-                        help='The fixture file')
-    parser.add_argument('output_file', type=str,
-                        help='The output file')
+    parser.add_argument('-v', '--verbose', type=bool, help='Verbose mode', default=False)
+    parser.add_argument('-f', '--file', type=str,
+                        help='The fixture file. If not specified will read from STDIN')
+    parser.add_argument('-o', '--output_file', type=str, default='',
+                        help='The output file. If not specified will write to STDOUT')
     args = parser.parse_args()
-    FixtureRunner(args.environment, args.file, args.output_file).run()
+    FixtureRunner(args.environment, args.file, args.output_file, args.verbose).run()
