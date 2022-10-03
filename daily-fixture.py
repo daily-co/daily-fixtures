@@ -13,6 +13,12 @@ class FixtureRunner():
         'prod': 'https://api.daily.co/'
     }
 
+    envkeys = {
+        'local': 'DAILY_API_KEY',
+        'staging': 'DAILY_API_KEY',
+        'prod': 'DAILY_API_KEY_PROD'
+    }
+
     prefix = None
     fixture = None
 
@@ -32,6 +38,7 @@ class FixtureRunner():
 
     def start(self):
         self.prefix = self.prefixes[self.environment]
+        self.api_key = os.environ[self.envkeys[self.environment]]
 
         if self.fixture_file:
             f = open(self.fixture_file)
@@ -80,7 +87,7 @@ class FixtureRunner():
 
             fixture = parsed_fixture
             headers = {
-                'Authorization': 'Bearer %s' % os.environ['DAILY_API_KEY']
+                'Authorization': 'Bearer %s' % self.api_key
             }
             url = self.prefix + 'v1/' + fixture['path']
             if 'query' in fixture:
@@ -120,7 +127,7 @@ class FixtureRunner():
 
     def log(self, s):
         if self.verbose:
-            self.log(s)
+            print(s)
 
     def log_error(self, e):
         pass
