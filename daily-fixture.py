@@ -21,6 +21,7 @@ class FixtureRunner():
     output_file = None
 
     fixture_values = {}
+    output = {}
 
     def __init__(self, environment, fixture_file, output_file, verbose):
         self.environment = environment
@@ -91,7 +92,7 @@ class FixtureRunner():
                 self.add_result(res, fixture)
             elif fixture['method'] == 'post':
                 self.log("post %s with data %s" %
-                      (url, json.dumps(fixture['data'])))
+                         (url, json.dumps(fixture['data'])))
                 res = requests.post(url, headers=headers, json=fixture['data'])
                 self.add_result(res, fixture)
 
@@ -99,20 +100,23 @@ class FixtureRunner():
         self.log("status: %d" % res.status_code)
         if (res.status_code != 200):
             self.log("Error: %s" % res.text)
-            self.fixture_values[fixture['name']] = {
+            self.output[fixture['name']] = {
                 'error': res.status_code,
                 'text': res.text
             }
         else:
             self.fixture_values[fixture['name']] = res.json()
+            if 'silent' not in fixture or not fixture['silent']:
+                self.output[fixture['name']] = res.json()
 
     def save_results(self):
         self.log("Saving results %s" % self.output_file)
+
         if self.output_file:
             f = open(self.output_file, 'w')
-            json.dump(self.fixture_values, f, indent=2)
+            json.dump(self.output, f, indent=2)
         else:
-            print(json.dumps(self.fixture_values, indent=2))
+            print(json.dumps(self.output, indent=2))
 
     def log(self, s):
         if self.verbose:
@@ -135,10 +139,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Daily fixtures library')
     parser.add_argument('environment', type=str,
                         help='The environment (local, staging or prod)')
-    parser.add_argument('-v', '--verbose', type=bool, help='Verbose mode', default=False)
+    parser.add_argument('-v', '--verbose', type=bool,
+                        help='Verbose mode', default=False)
     parser.add_argument('-f', '--file', type=str,
                         help='The fixture file. If not specified will read from STDIN')
     parser.add_argument('-o', '--output_file', type=str, default='',
                         help='The output file. If not specified will write to STDOUT')
     args = parser.parse_args()
-    FixtureRunner(args.environment, args.file, args.output_file, args.verbose).run()
+    FixtureRunner(args.environment, args.file,
+                  args.output_file, args.verbose).run()

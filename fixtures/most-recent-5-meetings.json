@@ -1,0 +1,16 @@
+{
+    "fixtures": [
+        {
+                "name": "all-meetings",
+                "path": "meetings",
+                "method": "get",
+                "silent": true
+        },
+        {
+                "name": "after",
+                "path": "meetings",
+                "query": "timeframe_start=${all-meetings.data[4].start_time}",
+                "method": "get"
+        }
+    ]
+}
