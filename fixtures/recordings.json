@@ -6,16 +6,19 @@
             "method": "get"
         },
         {
-            "name": "path",
-            "path": "recordings/${recordings.data[0].id}/access-link",
+            "name": "recordings-one",
+            "path": "recordings/${recordings.data[1].id}",
             "method": "get"
         },
-	{
-	},
-	{
-	    "name": "path-missing-room",
-	    "path": "recordings/xxxxx/access-link",
-	    "method": "get"
-	}
+        {
+            "name": "access-link",
+            "path": "recordings/${recordings.data[2].id}/access-link",
+            "method": "get"
+        },
+        {
+            "name": "access-link",
+            "path": "recordings/${recordings.data[0].id}/access-link",
+            "method": "get"
+        }
     ]
 }

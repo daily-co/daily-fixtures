@@ -1,0 +1,19 @@
+{
+    "fixtures": [
+        {
+            "name": "update-domain",
+            "path": "",
+            "method": "post",
+            "data": {
+                "properties": {
+                    "recordings_bucket": null
+                }
+            }
+        },
+        {
+            "name": "get-domain",
+            "path": "",
+            "method": "get"
+        }
+    ]
+}

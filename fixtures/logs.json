@@ -1,0 +1,15 @@
+{
+    "fixtures": [
+        {
+            "name": "meetings",
+            "path": "meetings",
+            "method": "get"
+        },
+        {
+            "name": "logs",
+            "path": "logs",
+            "method": "get",
+            "query": "mtgSessionId=${meetings.data[0].id}"
+        }
+    ]
+}
