@@ -1,0 +1,14 @@
+{
+    "fixtures": [
+		{
+			"name": "a",
+			"method": "get",
+			"path": ""
+		},
+		{
+			"name": "a",
+			"method": "get",
+			"path": ""
+		}
+    ]
+}

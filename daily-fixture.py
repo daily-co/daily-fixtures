@@ -3,7 +3,7 @@ import json
 import os
 import re
 import requests
-from sys import prefix, stdin
+from sys import stdin, stderr
 
 
 class FixtureRunner():
@@ -79,6 +79,28 @@ class FixtureRunner():
 
         return value
 
+    def check_required_field(self, field, fixture):
+        if field not in fixture:
+            self.log_error("Field '%s' not in fixture '%s'" %
+                           (field, fixture['name']))
+            exit(1)
+
+    def check_fixtures(self, fixtures):
+        seen_fixtures = set()
+        for fixture in fixtures:
+            if fixture['name'] in seen_fixtures:
+                self.log_error(
+                    "Duplicate name in fixture array: %s" % fixture['name'])
+                exit(1)
+
+            self.check_required_field('method', fixture)
+            self.check_required_field('path', fixture)
+
+            if fixture['method'] == 'post':
+                self.check_required_field('data', fixture)
+
+            seen_fixtures.add(fixture['name'])
+
     def run_fixtures(self, fixtures):
         for fixture in fixtures:
             parsed_fixture = {}
@@ -130,13 +152,16 @@ class FixtureRunner():
             print(s)
 
     def log_error(self, e):
-        pass
+        FAIL = '\033[91m'
+        ENDC = '\033[0m'
+        stderr.write("%sERROR: %s %s" % (FAIL, e, ENDC))
 
     def run(self):
         self.start()
         if ('properties' in self.fixture):
             self.set_properties(self.fixture['properties'])
 
+        self.check_fixtures(self.fixture['fixtures'])
         self.run_fixtures(self.fixture['fixtures'])
         self.save_results()
         pass
