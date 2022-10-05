@@ -3,7 +3,8 @@
         {
             "name": "meetings",
             "path": "meetings",
-            "method": "get"
+            "method": "get",
+	    "silent": true
         },
         {
             "name": "logs",

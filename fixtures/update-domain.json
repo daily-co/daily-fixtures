@@ -11,7 +11,11 @@
                         "bucket_region": "us-west-2",
                         "assume_role_arn": "arn:aws:iam::713696772979:role/daily-write-recordings",
                         "allow_api_access": true
-                    }
+                    },
+		    "webhook_meeting_end": {
+			"url": "https://localhost:5000/",
+			"new": true
+		    }
                 }
             }
         },
@@ -19,21 +23,6 @@
             "name": "get-domain",
             "path": "",
             "method": "get"
-        },
-        {
-            "name": "update-domain",
-            "path": "",
-            "method": "post",
-            "data": {
-                "properties": {
-                    "recordings_bucket": {
-                        "bucket_name": "${get-domain.config.recordings_bucket.bucket_name}",
-                        "bucket_region": "us-west-2",
-                        "assume_role_arn": "arn:aws:iam::713696772979:role/daily-write-recordings",
-                        "allow_api_access": true
-                    }
-                }
-            }
         }
     ]
 }
