@@ -1,0 +1,15 @@
+{
+    "fixtures": [
+        {
+            "name": "meetings",
+            "path": "/meetings",
+            "method": "get",
+            "silent": true
+        },
+        {
+            "name": "most-recent-room",
+            "path": "/rooms/${meetings.data[0].room}",
+            "method": "get"
+        }
+    ]
+}

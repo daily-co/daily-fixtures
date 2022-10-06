@@ -1,11 +1,6 @@
 {
     "fixtures": [
         {
-            "name": "domain",
-            "path": "",
-            "method": "get"
-        },
-        {
             "name": "all-meetings",
             "path": "meetings",
             "method": "get"

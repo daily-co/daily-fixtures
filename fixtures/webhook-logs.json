@@ -1,0 +1,9 @@
+{
+    "fixtures": [
+        {
+            "name": "webhook-logs",
+            "method": "get",
+            "path": "/logs/webhooks"
+        }
+    ]
+}
