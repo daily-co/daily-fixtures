@@ -3,6 +3,7 @@ Parse JSON files to make REST API calls to daily.co
 
 ## Usage
 
+```
 usage: daily-fixture.py [-h] [-v VERBOSE] [-f FILE] [-o OUTPUT_FILE] environment
 
 Daily fixtures library
@@ -17,7 +18,7 @@ options:
   -f FILE, --file FILE  The fixture file. If not specified will read from STDIN
   -o OUTPUT_FILE, --output_file OUTPUT_FILE
                         The output file. If not specified will write to STDOUT
-
+```
 
 ## Description
 
