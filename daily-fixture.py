@@ -10,9 +10,15 @@ from sys import stdin, stderr
 
 class FixtureRunner():
     prefixes = {
-        'local': 'https://khk-local.wss.daily.co:8080/api/',
-        'staging': 'https://staging.daily.co/api/',
+        'local': 'https://khk-local.wss.daily.co:8080/',
+        'staging': 'https://staging.daily.co/',
         'prod': 'https://api.daily.co/'
+    }
+
+    api_paths = {
+        'local': 'api/v1/',
+        'staging': 'api/v1/',
+        'prod': 'v1/'
     }
 
     envkeys = {
@@ -40,6 +46,7 @@ class FixtureRunner():
 
     def start(self):
         self.prefix = self.prefixes[self.environment]
+        self.api_path = self.api_paths[self.environment]
         self.api_key = os.environ[self.envkeys[self.environment]]
 
         if self.fixture_file:
@@ -90,6 +97,7 @@ class FixtureRunner():
     def check_fixtures(self, fixtures):
         seen_fixtures = set()
         for fixture in fixtures:
+            print(fixture)
             if fixture['name'] in seen_fixtures:
                 self.log_error(
                     "Duplicate name in fixture array: %s" % fixture['name'])
@@ -113,7 +121,10 @@ class FixtureRunner():
             headers = {
                 'Authorization': 'Bearer %s' % self.api_key
             }
-            url = self.prefix + 'v1/' + fixture['path']
+            if 'raw' in fixture and fixture['raw']:
+                url = self.prefix + fixture['path']
+            else:
+                url = self.prefix + self.api_path + fixture['path']
             if 'query' in fixture:
                 url += '?' + fixture['query']
 
