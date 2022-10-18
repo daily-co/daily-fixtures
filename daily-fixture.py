@@ -12,19 +12,29 @@ class FixtureRunner():
     prefixes = {
         'local': 'https://khk-local.wss.daily.co:8080/',
         'staging': 'https://staging.daily.co/',
+        'blue': 'https://qa-ks.pluot.blue/',
         'prod': 'https://api.daily.co/'
     }
 
     api_paths = {
         'local': 'api/v1/',
         'staging': 'api/v1/',
+        'blue': 'api/v1/',
         'prod': 'v1/'
     }
 
     envkeys = {
         'local': 'DAILY_API_KEY',
         'staging': 'DAILY_API_KEY',
+        'blue': 'DAILY_API_KEY',
         'prod': 'DAILY_API_KEY_PROD'
+    }
+
+    envkeys_alt = {
+        'local': 'DAILY_API_KEY_ALT',
+        'staging': 'DAILY_API_KEY_ALT',
+        'blue': 'DAILY_API_KEY_ALT',
+        'prod': 'DAILY_API_KEY_PROD_ALT'
     }
 
     prefix = None
@@ -48,6 +58,7 @@ class FixtureRunner():
         self.prefix = self.prefixes[self.environment]
         self.api_path = self.api_paths[self.environment]
         self.api_key = os.environ[self.envkeys[self.environment]]
+        self.api_key_alt = os.environ[self.envkeys_alt[self.environment]]
 
         if self.fixture_file:
             f = open(self.fixture_file)
@@ -118,9 +129,18 @@ class FixtureRunner():
                 parsed_fixture[key] = self.parse_value_string(value)
 
             fixture = parsed_fixture
-            headers = {
-                'Authorization': 'Bearer %s' % self.api_key
-            }
+
+            if 'alt' in fixture and fixture['alt']:
+                self.log('Using alt key for request %s' % fixture['name'])
+                headers = {
+                    'Authorization': 'Bearer %s' % self.api_key_alt
+                }
+                print(json.dumps(headers))
+            else:
+                headers = {
+                    'Authorization': 'Bearer %s' % self.api_key
+                }
+
             if 'raw' in fixture and fixture['raw']:
                 url = self.prefix + fixture['path']
             else:
@@ -136,6 +156,10 @@ class FixtureRunner():
                 self.log("post %s with data %s" %
                          (url, json.dumps(fixture['data'])))
                 res = requests.post(url, headers=headers, json=fixture['data'])
+                self.add_result(res, fixture)
+            elif fixture['method'] == 'delete':
+                self.log("delete %s" % url)
+                res = requests.delete(url, headers=headers)
                 self.add_result(res, fixture)
 
     def add_result(self, res, fixture):

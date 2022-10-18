@@ -1,0 +1,45 @@
+{
+    "fixtures": [
+        {
+            "name": "recordings",
+            "path": "recordings",
+            "method": "get",
+            "silent": false
+        },
+        {
+            "name": "recordings-new-download-link",
+            "path": "recordings/id/${recordings.data[0].id}/new-download-link",
+            "method": "post",
+            "data": {},
+            "raw": true
+        },
+        {
+            "name": "recordings-new-download-link-alt",
+            "path": "recordings/id/${recordings.data[0].id}/new-download-link",
+            "method": "post",
+            "data": {},
+            "raw": true,
+            "alt": true
+        },
+        {
+            "name": "recordings-get-1ary",
+            "path": "recordings/id/${recordings.data[0].id}",
+            "method": "get",
+            "raw": true
+        },
+        {
+            "name": "recordings-get-alt",
+            "path": "recordings/id/${recordings.data[1].id}",
+            "method": "get",
+            "alt": true,
+            "raw": true
+        },
+        {
+            "name": "recordings-delete-alt",
+            "path": "recordings/id/${recordings.data[1].id}",
+            "method": "delete",
+            "alt": true,
+            "raw": true
+        }
+    ]
+}

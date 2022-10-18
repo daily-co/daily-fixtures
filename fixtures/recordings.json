@@ -3,22 +3,33 @@
         {
             "name": "recordings",
             "path": "recordings",
-            "method": "get"
+            "method": "get",
+            "silent": true
         },
         {
             "name": "recordings-one",
-            "path": "recordings/${recordings.data[1].id}",
+            "path": "recordings/${recordings.data[4].id}",
             "method": "get"
         },
         {
-            "name": "access-link",
+            "name": "access-link-2",
             "path": "recordings/${recordings.data[2].id}/access-link",
-            "method": "get"
+            "method": "get",
+            "silent": true
         },
         {
-            "name": "access-link",
+            "name": "access-link-0",
             "path": "recordings/${recordings.data[0].id}/access-link",
-            "method": "get"
+            "method": "get",
+            "silent": true
+        },
+        {
+            "name": "new-link-0",
+            "path": "recordings/id/${recordings.data[4].id}/new-download-link",
+            "method": "post",
+            "raw": true,
+            "data": {},
+            "silent": false
         }
     ]
 }

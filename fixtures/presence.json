@@ -1,0 +1,9 @@
+{
+    "fixtures": [
+	{
+	"name": "presence",
+	"path": "presence",
+	"method": "get"
+	}
+    ]
+}
