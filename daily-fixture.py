@@ -16,6 +16,13 @@ class FixtureRunner():
         'prod': 'https://api.daily.co/'
     }
 
+    prefixes_raw = {
+        'local': 'https://khk-local.wss.daily.co:8080/',
+        'staging': 'https://staging.daily.co/',
+        'blue': 'https://qa-ks.pluot.blue/',
+        'prod': 'https://daily.co/'
+    }
+
     api_paths = {
         'local': 'api/v1/',
         'staging': 'api/v1/',
@@ -56,6 +63,7 @@ class FixtureRunner():
 
     def start(self):
         self.prefix = self.prefixes[self.environment]
+        self.prefix_raw = self.prefixes_raw[self.environment]
         self.api_path = self.api_paths[self.environment]
         self.api_key = os.environ[self.envkeys[self.environment]]
         self.api_key_alt = os.environ[self.envkeys_alt[self.environment]]
@@ -142,7 +150,7 @@ class FixtureRunner():
                 }
 
             if 'raw' in fixture and fixture['raw']:
-                url = self.prefix + fixture['path']
+                url = self.prefix_raw + fixture['path']
             else:
                 url = self.prefix + self.api_path + fixture['path']
             if 'query' in fixture:
