@@ -78,34 +78,38 @@ class FixtureRunner():
         pass
 
     def parse_value_string(self, value):
-        if type(value) == dict:
-            new_dict = {}
-            for key in value:
-                new_dict[key] = self.parse_value_string(value[key])
-            return new_dict
-        elif type(value) != str:
-            return value
+        try:
+            if type(value) == dict:
+                new_dict = {}
+                for key in value:
+                    new_dict[key] = self.parse_value_string(value[key])
+                return new_dict
+            elif type(value) != str:
+                return value
 
-        matches = re.findall('\$\{(.*?)\}', value)
-        for match in matches:
-            fields = match.split(".")
-            cur_obj = self.fixture_values
-            for field in fields:
-                array = re.match('(.*)\[([0-9]+)\]', field)
-                if array:
-                    cur_obj = cur_obj[array[1]][int(array[2])]
-                elif field in cur_obj:
-                    cur_obj = cur_obj[field]
+            matches = re.findall('\$\{(.*?)\}', value)
+            for match in matches:
+                fields = match.split(".")
+                cur_obj = self.fixture_values
+                for field in fields:
+                    array = re.match('(.*)\[([0-9]+)\]', field)
+                    if array:
+                        cur_obj = cur_obj[array[1]][int(array[2])]
+                    elif field in cur_obj:
+                        cur_obj = cur_obj[field]
+                    else:
+                        self.log("%s not found in %s" % (field, cur_obj))
+                        break
+
+                if isinstance(cur_obj, str) or isinstance(cur_obj, int):
+                    value = re.sub('\$\{(.*?)\}', str(cur_obj), value, count=1)
                 else:
-                    self.log("%s not found in %s" % (field, cur_obj))
-                    break
+                    self.log("%s does not resolve to a string or integer" % value)
 
-            if isinstance(cur_obj, str) or isinstance(cur_obj, int):
-                value = re.sub('\$\{(.*?)\}', str(cur_obj), value, count=1)
-            else:
-                self.log("%s does not resolve to a string or integer" % value)
-
-        return value
+            return value
+        except Exception as e:
+            print("An error occurred while parsing %s: %s" % (value, e))
+            return value
 
     def check_required_field(self, field, fixture):
         if field not in fixture:
@@ -179,9 +183,13 @@ class FixtureRunner():
                 'text': res.text
             }
         else:
-            self.fixture_values[fixture['name']] = res.json()
-            if 'silent' not in fixture or not fixture['silent']:
-                self.output[fixture['name']] = res.json()
+            try:
+                self.fixture_values[fixture['name']] = res.json()
+                if 'silent' not in fixture or not fixture['silent']:
+                    self.output[fixture['name']] = res.json()
+            except requests.exceptions.JSONDecodeError as err:
+                self.fixture_values[fixture['name']] = {
+                    'error': f"Unexpected {err=}, {type(err)=}"}
 
     def save_results(self):
         self.log("Saving results %s" % self.output_file)

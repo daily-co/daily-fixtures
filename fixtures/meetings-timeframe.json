@@ -4,7 +4,9 @@
             "name": "all-meetings",
             "path": "meetings",
             "method": "get"
-        },
+        }
+    ],
+    "unused": [
         {
             "name": "after",
             "path": "meetings",

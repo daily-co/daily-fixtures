@@ -1,0 +1,10 @@
+{
+    "fixtures": [
+        {
+        "name": "domains-member",
+        "path": "domains/member",
+        "method": "get",
+        "raw": true
+        }
+    ]
+}

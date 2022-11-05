@@ -1,0 +1,9 @@
+{
+    "fixtures": [
+        {
+            "name": "logs",
+            "path": "/logs/?mtgSessionId=e2aa05c6-e92f-4625-bb71-7d7d24d15569&logLevel=ERROR&order=DESC&limit=200",
+            "method": "get"
+        }
+    ]
+}

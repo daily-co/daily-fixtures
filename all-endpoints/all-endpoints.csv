@@ -1,0 +1,152 @@
+﻿Method,URL Path,File,purpose,internal/external,Audited
+GET,/,routes/public-api.js,REST API,external,No
+POST,/,routes/public-api.js,REST API,external,No
+GET,/.well-known/apple-app-site-association,app-server.js,server-server communication,external,No
+GET,/_ks_/,routes/KitchenSync.js,server-server communication,internal,No
+POST,/_ks_/,routes/KitchenSync.js,server-server communication,internal,No
+POST,/_ks_/cron-delete-old-msgs,routes/KitchenSync.js,server-server communication,internal,No
+POST,/_ks_/x-hny,routes/KitchenSync.js,server-server communication,internal,No
+GET,/_ks_/x-rtsl/,routes/KitchenSync.js,server-server communication,internal,No
+GET,/_ks_/x-rtsl/:teamName,routes/KitchenSync.js,server-server communication,internal,No
+GET,/_ks_/x-sfusl/,routes/KitchenSync.js,server-server communication,internal,No
+GET,/_ks_/x-sfusl/:optGroup,routes/KitchenSync.js,server-server communication,internal,No
+GET,/_ks_/x-swsl/:optGroupAndWorker,routes/KitchenSync.js,server-server communication,internal,No
+GET,/a,app-server.js,server-server communication,external,No
+GET,/boxes/:serial,routes/boxes.js,,,No
+POST,/boxes/:serial,routes/boxes.js,,,No
+GET,/boxes/:serial/presence/:adminKey,routes/boxes.js,,,No
+GET,/boxes/:serial/reboot/:adminKey,routes/boxes.js,,,No
+GET,/chatmessages/messages/:roomId/:lastSeenMessageId,routes/chatmessages.js,REST API,,No
+POST,/chatmessages/new-message/:roomId/:userId,routes/chatmessages.js,REST API,,No
+GET,/dashboard,app-server.js,,external,No
+POST,/delete-exp-rooms,routes/public-api.js,cron,,No
+POST,/delete-old-logs,routes/public-api.js,cron,,No
+GET,/dial-in/:mtgStr/transfer.xml,routes/dial-in.js,,,No
+GET,/dial-in/conference.xml,routes/dial-in.js,,,No
+GET,/dial-in/device-conference.xml,routes/dial-in.js,,,No
+GET,/dial-in/event,routes/dial-in.js,,,No
+GET,/dial-in/initial-answer.xml,routes/dial-in.js,,,No
+GET,/dial-in/reject.xml,routes/dial-in.js,,,No
+GET,/dial-out/:mtg_str/:phone_number,app-server.js,,,No
+GET,/domains/:domain,routes/domains.js,dashboard,internal,No
+POST,/domains/:domain/hold,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/logs,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/logs/:log,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/logs/counts,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/meetings,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/meetings/:meetingId,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/meetings/:meetingId/:participantId,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/meetings/:meetingId/:participantId/metrics,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/recordings,routes/domains.js,dashboard,internal,No
+POST,/domains/:domain/room,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/room/:room,routes/domains.js,dashboard,internal,No
+DELETE,/domains/:domain/room/:room,routes/domains.js,dashboard,internal,No
+GET,/domains/:domain/search,routes/domains.js,dashboard,internal,No
+GET,/domains/by-name/:domainName,routes/domains.js,dashboard,internal,No
+POST,/domains/by-name/:domainName,routes/domains.js,dashboard,internal,No
+POST,/domains/by-name/:domainName/meetings,routes/domains.js,dashboard,internal,No
+POST,/domains/by-name/:domainName/room,routes/domains.js,dashboard,internal,No
+DELETE,/domains/by-name/:domainName/room/:room,routes/domains.js,dashboard,internal,No
+POST,/domains/by-name/:domainName/room/:room,routes/domains.js,dashboard,internal,No
+DELETE,/domains/by-name/:domainName/user/:email,routes/domains.js,dashboard,internal,No
+POST,/domains/check,routes/domains.js,dashboard,internal,No
+POST,/domains/claim,routes/domains.js,dashboard,internal,No
+POST,/domains/instant-room,routes/domains.js,dashboard,internal,No
+GET,/domains/member,routes/domains.js,dashboard,internal,No
+PUT,/domains/room/:room,routes/domains.js,dashboard,internal,No
+POST,/echo-args,routes/public-api.js,REST API,external,No
+GET,/favicon.ico,app-server.js,,,No
+GET,/geo/:userId,app-server.js,server-server communication,internal,No
+POST,/intercom/alert,routes/intercom.js,,,No
+POST,/intercom/app-configure,routes/intercom.js,,,No
+POST,/intercom/app-initialize,routes/intercom.js,,,No
+GET,/intercom/app-install,routes/intercom.js,,,No
+POST,/intercom/app-uninstall,routes/intercom.js,,,No
+GET,/intercom/oauth-callback,routes/intercom.js,,,No
+POST,/intercom/oauth-callback,routes/intercom.js,,,No
+GET,/invites/:inviteToken,routes/invites.js,,,No
+GET,/logs,routes/public-api.js,REST API,external,No
+GET,/logs/api,routes/public-api.js,REST API,external,No
+GET,/logs/webhooks,routes/public-api.js,REST API,external,No
+POST,/meeting-tokens,routes/public-api.js,REST API,external,No
+GET,/meeting-tokens/:token,routes/public-api.js,REST API,external,No
+GET,/meetings,routes/public-api.js,REST API,external,No
+GET,/new,app-server.js,EOL,,No
+DELETE,/orgs/:org/user/:user,routes/orgs.js,dashboard,internal,No
+POST,/orgs/:org/user/:user,routes/orgs.js,dashboard,internal,No
+GET,/orgs/:org/users,routes/orgs.js,dashboard,internal,No
+GET,/presence,routes/public-api.js,REST API,external,No
+GET,/recordings,routes/public-api.js,REST API,external,No
+GET,/recordings/:id,routes/public-api.js,REST API,external,No
+DELETE,/recordings/:id,routes/public-api.js,REST API,external,No
+GET,/recordings/:id/access-link,routes/public-api.js,REST API,external,No
+GET,/recordings/:id/composites,routes/public-api.js,REST API,external,No
+POST,/recordings/:id/composites,routes/public-api.js,REST API,external,No
+GET,/recordings/:id/composites/:composite_id,routes/public-api.js,REST API,external,No
+GET,/recordings/:id/track/:track_id,routes/public-api.js,REST API,external,No
+GET,/recordings/:shareToken/download,routes/public-api.js,REST API,external,No
+GET,/recordings/id/:recordingId,routes/recordings.js,dashboard,internal,No
+DELETE,/recordings/id/:recordingId,routes/recordings.js,dashboard,internal,No
+POST,/recordings/id/:recordingId/new-download-link,routes/recordings.js,dashboard,internal,No
+POST,/recordings/id/:recordingId/new-share-token,routes/recordings.js,dashboard,internal,No
+GET,/recordings/info/:recordingId,routes/recordings.js,dashboard,internal,No
+GET,/recordings/job,routes/recordings.js,dashboard,internal,No
+POST,/recordings/job,routes/recordings.js,dashboard,internal,No
+POST,/recordings/new,routes/recordings.js,dashboard,internal,No
+POST,/recordings/refresh-upload,routes/recordings.js,dashboard,internal,No
+POST,/recordings/room/:oldRoomId/transfer/:newRoomId,routes/recordings.js,dashboard,internal,No
+GET,/recordings/room/:roomId,routes/recordings.js,dashboard,internal,No
+POST,/recordings/room/:roomId/downgrade,routes/recordings.js,dashboard,internal,No
+POST,/recordings/room/:roomId/upgrade,routes/recordings.js,dashboard,internal,No
+GET,/recordings/share-token/:shareToken,routes/recordings.js,dashboard,internal,No
+GET,/recordings/sigtest,routes/recordings.js,dashboard,internal,No
+POST,/recordings/update,routes/recordings.js,dashboard,internal,No
+GET,/rooms,routes/public-api.js,REST API,external,No
+POST,/rooms,routes/public-api.js,REST API,external,No
+GET,/rooms/:name,routes/public-api.js,REST API,external,No
+DELETE,/rooms/:name,routes/public-api.js,REST API,external,No
+POST,/rooms/:name,routes/public-api.js,REST API,external,No
+DELETE,/rooms/:room/user/:user,routes/rooms.js,dashboard,internal,No
+POST,/rooms/:room/user/:user,routes/rooms.js,dashboard,internal,No
+GET,/rooms/check/:domain/:room,routes/rooms.js,dashboard,internal,No
+POST,/rooms/ksauth/:domain/:room/:sessionId,routes/rooms.js,dashboard,internal,No
+DELETE,/rooms/ksauth/:token,routes/rooms.js,dashboard,internal,No
+GET,/rooms/props/:domain/:room,routes/rooms.js,dashboard,internal,No
+POST,/root/create-api-token,routes/public-api.js,REST API,external,No
+POST,/root/delete-api-token,routes/public-api.js,REST API,external,No
+POST,/root/preview-plan-change,routes/public-api.js,REST API,external,No
+POST,/root/regenerate-api-token,routes/public-api.js,REST API,external,No
+POST,/root/stripe-invoice,routes/public-api.js,REST API,external,No
+POST,/root/subscribe-to-plan,routes/public-api.js,REST API,external,No
+POST,/stripe-update-payment-info,routes/public-api.js,REST API,external,No
+GET,/tcct-150721/:timeout/tcct-150721.json,app-server.js,,,No
+GET,/tcct-190710/:action/:mtg_str/:twilio_sid,app-server.js,,,No
+GET,/tt-150331.json,app-server.js,,,No
+GET,/tt-170523/:identity/tt-170523.json,app-server.js,,,No
+GET,/usage,routes/public-api.js,REST API,external,No
+DELETE,/users/:user,routes/users.js,dashboard,internal,No
+POST,/users/add-payment-info,routes/users.js,dashboard,internal,No
+POST,/users/avatar,routes/users.js,dashboard,internal,No
+GET,/users/avatar/:avatarId,routes/users.js,dashboard,internal,No
+POST,/users/check-recovery,routes/users.js,dashboard,internal,No
+GET,/users/checkAuthToken,routes/users.js,dashboard,internal,No
+GET,/users/geo,routes/users.js,dashboard,internal,No
+GET,/users/get-payment-info,routes/users.js,dashboard,internal,No
+GET,/users/invites,routes/users.js,dashboard,internal,No
+POST,/users/login,routes/users.js,dashboard,internal,No
+POST,/users/login-google,routes/users.js,dashboard,internal,No
+GET,/users/logout,routes/users.js,dashboard,internal,No
+POST,/users/recover,routes/users.js,dashboard,internal,No
+POST,/users/refresh,routes/users.js,dashboard,internal,No
+POST,/users/remove-user-avatar,routes/users.js,dashboard,internal,No
+GET,/users/reset,routes/users.js,dashboard,internal,No
+POST,/users/send-verify-email,routes/users.js,dashboard,internal,No
+POST,/users/signup,routes/users.js,dashboard,internal,No
+POST,/users/signup-google,routes/users.js,dashboard,internal,No
+POST,/users/update,routes/users.js,dashboard,internal,No
+POST,/users/update-billing-email,routes/users.js,dashboard,internal,No
+POST,/users/update-payment-info,routes/users.js,dashboard,internal,No
+POST,/users/verify-email,routes/users.js,dashboard,internal,No
+POST,/webhooks-meeting-end,routes/public-api.js,REST API,external,No
+,,,,,No
+PATCH,/users/update-user-info,routes/users.js,dashboard,internal,No

@@ -1,0 +1,12 @@
+{
+    "fixtures": [
+	{
+	    "name": "get-download-link",
+	    "path": "recordings/id/eb907eaa-8a75-4b2b-92f7-7cad98678848/new-download-link",
+	    "raw": true,
+	    "method": "post",
+	    "data": {
+	    }
+	}
+    ]
+}

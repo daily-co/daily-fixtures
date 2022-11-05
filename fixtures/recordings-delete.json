@@ -7,6 +7,11 @@
             "silent": false
         },
         {
+            "name": "room",
+            "path": "rooms/moishe-test",
+            "method": "get"
+        },
+        {
             "name": "recordings-new-download-link",
             "path": "recordings/id/${recordings.data[0].id}/new-download-link",
             "method": "post",
@@ -20,6 +25,15 @@
             "data": {},
             "raw": true,
             "alt": true
+        }
+   ],
+   "unused": [
+        {
+            "name": "recordings-delete-alt",
+            "path": "recordings/id/${recordings.data[0].id}",
+            "method": "delete",
+            "alt": true,
+            "raw": true
         },
         {
             "name": "recordings-get-1ary",
@@ -29,17 +43,38 @@
         },
         {
             "name": "recordings-get-alt",
-            "path": "recordings/id/${recordings.data[1].id}",
+            "path": "recordings/id/${recordings.data[0].id}",
             "method": "get",
             "alt": true,
             "raw": true
         },
         {
-            "name": "recordings-delete-alt",
-            "path": "recordings/id/${recordings.data[1].id}",
-            "method": "delete",
+            "name": "recordings-new-share-token-alt",
+            "path": "recordings/id/${recordings.data[0].id}/new-share-token",
+            "method": "post",
+            "data": {},
+            "raw": true,
+            "alt": true
+        },
+        {
+            "name": "recordings-new-download-link",
+            "path": "recordings/id/${recordings.data[0].id}/new-download-link",
+            "method": "post",
+            "data": {},
+            "raw": true
+        },
+        {
+            "name": "room-recordings",
+            "path": "recordings/room/${room.id}",
+            "method": "get",
+            "raw": true
+        },
+        {
+            "name": "room-recordings-alt",
+            "path": "recordings/room/${room.id}",
+            "method": "get",
             "alt": true,
             "raw": true
         }
-    ]
+   ]
 }

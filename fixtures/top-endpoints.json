@@ -1,0 +1,61 @@
+{
+    "fixtures": [
+        {
+            "name": "raw-search",
+            "path": "domains/fa5765fb-e0b7-4a77-a50e-b135be5da3d5/search?q=a",
+            "method": "get",
+            "raw": "true"
+        }
+
+    ],
+    "unused": [
+        {
+            "name": "raw-meeting",
+            "path": "domains//fa5765fb-e0b7-4a77-a50e-b135be5da3d5/meetings/bc9c79a5-1749-4868-8f4f-1fb65a8bb00a",
+            "method": "get",
+            "raw": "true"
+        },
+        {
+            "name": "raw-logs",
+            "path": "domains//fa5765fb-e0b7-4a77-a50e-b135be5da3d5/logs",
+            "method": "get",
+            "raw": "true"
+        },
+        {
+            "name": "raw-meetings",
+            "path": "domains/fa5765fb-e0b7-4a77-a50e-b135be5da3d5/meetings",
+            "method": "get",
+            "raw": "true"
+        },
+        {
+            "name": "domain",
+            "path": "/",
+            "method": "get"
+        },
+        {
+            "name": "rooms",
+            "path": "/rooms",
+            "method": "get"
+        },
+        {
+            "name": "recordings",
+            "path": "/recordings",
+            "method": "get"
+        },
+        {
+            "name": "presence",
+            "path": "/presence",
+            "method": "get"
+        },
+        {
+            "name": "meetings",
+            "path": "/meetings",
+            "method": "get"
+        },
+        {
+            "name": "logs",
+            "path": "/logs?mtgSessionId=bc9c79a5-1749-4868-8f4f-1fb65a8bb00a",
+            "method": "get"
+        }
+    ]
+}

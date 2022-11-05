@@ -1,0 +1,16 @@
+{
+    "fixtures": [
+        {
+            "name": "default_domain",
+            "path": "",
+            "method": "get",
+            "silent": true
+        },
+        {
+            "name": "domain-info",
+            "path": "domains/${default_domain.domain_id}",
+            "raw": true,
+            "method": "get"
+        }
+    ]
+}

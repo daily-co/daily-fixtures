@@ -1,0 +1,10 @@
+{
+    "fixtures": [
+	{
+	    "name": "invites",
+	    "path": "users/invites",
+	    "raw": true,
+	    "method": "get"
+	}
+    ]
+}

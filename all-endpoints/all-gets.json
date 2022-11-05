@@ -1,0 +1,267 @@
+{
+  "fixtures": [
+    {
+      "name": "xdomain",
+      "path": "/",
+      "method": "get",
+      "silent": true
+    },
+    {
+      "name": "xrooms",
+      "path": "/rooms",
+      "method": "get",
+      "silent": true
+    },
+    {
+      "name": "xmeetings",
+      "path": "/meetings",
+      "method": "get"
+    },
+    {
+      "name": "",
+      "path": "",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": ".well-known-apple-app-site-association",
+      "path": ".well-known/apple-app-site-association",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "a",
+      "path": "a",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "dashboard",
+      "path": "dashboard",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "dial-in-conference.xml",
+      "path": "dial-in/conference.xml",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "dial-in-device-conference.xml",
+      "path": "dial-in/device-conference.xml",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "dial-in-event",
+      "path": "dial-in/event",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "dial-in-initial-answer.xml",
+      "path": "dial-in/initial-answer.xml",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "dial-in-reject.xml",
+      "path": "dial-in/reject.xml",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-:domain",
+      "path": "domains/${xdomain.domain_id}",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-:domain-logs",
+      "path": "domains/${xdomain.domain_id}/logs",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-:domain-logs-counts",
+      "path": "domains/${xdomain.domain_id}/logs/counts",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-:domain-meetings",
+      "path": "domains/${xdomain.domain_id}/meetings",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-:domain-recordings",
+      "path": "domains/${xdomain.domain_id}/recordings",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-:domain-room-:room",
+      "path": "domains/${xdomain.domain_id}/room/${xrooms[0].id}",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-:domain-search",
+      "path": "domains/${xdomain.domain_id}/search",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "domains-member",
+      "path": "domains/member",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "favicon.ico",
+      "path": "favicon.ico",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "intercom-app-install",
+      "path": "intercom/app-install",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "intercom-oauth-callback",
+      "path": "intercom/oauth-callback",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "logs",
+      "path": "logs",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "logs-api",
+      "path": "logs/api",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "logs-webhooks",
+      "path": "logs/webhooks",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "meetings",
+      "path": "meetings",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "new",
+      "path": "new",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "presence",
+      "path": "presence",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "recordings",
+      "path": "recordings",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "recordings-job",
+      "path": "recordings/job",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "recordings-room-:roomId",
+      "path": "recordings/room/${xrooms[0].id}",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "recordings-sigtest",
+      "path": "recordings/sigtest",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "rooms",
+      "path": "rooms",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "rooms-check-:domain-:room",
+      "path": "rooms/check/${xdomain.domain_id}/${xrooms[0].id}",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "rooms-props-:domain-:room",
+      "path": "rooms/props/${xdomain.domain_id}/${xrooms[0].id}",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "tt-150331.json",
+      "path": "tt-150331.json",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "usage",
+      "path": "usage",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "users-checkAuthToken",
+      "path": "users/checkAuthToken",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "users-geo",
+      "path": "users/geo",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "users-get-payment-info",
+      "path": "users/get-payment-info",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "users-invites",
+      "path": "users/invites",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "users-logout",
+      "path": "users/logout",
+      "method": "get",
+      "raw": true
+    },
+    {
+      "name": "users-reset",
+      "path": "users/reset",
+      "method": "get",
+      "raw": true
+    }
+  ]
+}
