@@ -98,7 +98,8 @@ class FixtureRunner():
                     elif field in cur_obj:
                         cur_obj = cur_obj[field]
                     else:
-                        self.log("%s not found in %s" % (field, cur_obj))
+                        self.log("%s not found in %s" %
+                                 (field, json.dumps(cur_obj)[:20]))
                         break
 
                 if isinstance(cur_obj, str) or isinstance(cur_obj, int):
@@ -126,11 +127,12 @@ class FixtureRunner():
                     "Duplicate name in fixture array: %s" % fixture['name'])
                 exit(1)
 
-            self.check_required_field('method', fixture)
-            self.check_required_field('path', fixture)
+            if 'assertion_eq' not in fixture:
+                self.check_required_field('method', fixture)
+                self.check_required_field('path', fixture)
 
-            if fixture['method'] == 'post':
-                self.check_required_field('data', fixture)
+                if fixture['method'] == 'post':
+                    self.check_required_field('data', fixture)
 
             seen_fixtures.add(fixture['name'])
 
@@ -145,6 +147,22 @@ class FixtureRunner():
             use_alt_token = 'alt' in fixture and fixture['alt']
             if use_alt_token:
                 self.log('Using alt key for request %s' % fixture['name'])
+
+            if 'assertion_eq' in fixture:
+                self.log("Checking assertion: %s" % fixture['name'])
+                items = [self.parse_value_string(i)
+                         for i in fixture['assertion_eq']]
+                if len(items) != 2:
+                    self.log_error('2 items expected for assertion_eq: %s' %
+                                   fixture['assertion_eq'])
+                    exit(1)
+
+                if items[0] != items[1]:
+                    self.log_error('Failed assertion: %s not equal' % items)
+                    exit(1)
+
+                self.log("Passed: %s" % items)
+                continue
 
             if 'raw' in fixture and fixture['raw']:
                 url = self.prefix_raw + fixture['path']
@@ -162,6 +180,8 @@ class FixtureRunner():
                 elif fixture['token_type'] == 'none':
                     self.log('Using no token for request %s' % fixture['name'])
                     bearer_token = None
+            elif 'override_token' in fixture:
+                bearer_token = fixture['override_token']
             else:
                 if use_alt_token:
                     bearer_token = self.api_key
