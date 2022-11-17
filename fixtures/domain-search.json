@@ -1,0 +1,16 @@
+{
+    "fixtures": [
+	{
+	    "name": "xdomain",
+	    "path": "/",
+	    "method": "get",
+	    "silent": true
+	},
+	{
+	    "name": "domains-:domain-search",
+	    "path": "domains/${xdomain.domain_id}/search?q=test",
+	    "method": "get",
+	    "raw": true
+	}
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "fixtures": [
+	{
+	    "name": "claim-domain",
+	    "path": "domains/claim",
+	    "raw": true,
+	    "method": "post",
+	    "data": {
+		"domain": "moishe-test-x"
+	    }
+	}
+    ]
+}

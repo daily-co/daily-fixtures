@@ -142,24 +142,42 @@ class FixtureRunner():
 
             fixture = parsed_fixture
 
-            if 'alt' in fixture and fixture['alt']:
+            use_alt_token = 'alt' in fixture and fixture['alt']
+            if use_alt_token:
                 self.log('Using alt key for request %s' % fixture['name'])
-                headers = {
-                    'Authorization': 'Bearer %s' % self.api_key_alt
-                }
-                print(json.dumps(headers))
-            else:
-                headers = {
-                    'Authorization': 'Bearer %s' % self.api_key
-                }
 
             if 'raw' in fixture and fixture['raw']:
                 url = self.prefix_raw + fixture['path']
             else:
                 url = self.prefix + self.api_path + fixture['path']
+
+            if 'token_type' in fixture:
+                if fixture['token_type'] == 'login':
+                    self.log('Using login token for request %s' %
+                             fixture['name'])
+                    if use_alt_token:
+                        bearer_token = self.login_token_alt
+                    else:
+                        bearer_token = self.login_token
+                elif fixture['token_type'] == 'none':
+                    self.log('Using no token for request %s' % fixture['name'])
+                    bearer_token = None
+            else:
+                if use_alt_token:
+                    bearer_token = self.api_key
+                else:
+                    bearer_token = self.api_key_alt
+
+            if bearer_token:
+                headers = {
+                    'Authorization': 'Bearer %s' % bearer_token
+                }
+            else:
+                headers = {}
+
             if 'query' in fixture:
                 url += '?' + fixture['query']
-
+            fixture['method'] = fixture['method'].lower()
             if fixture['method'] == 'get':
                 self.log("get %s" % url)
                 res = requests.get(url, headers=headers)
@@ -173,6 +191,11 @@ class FixtureRunner():
                 self.log("delete %s" % url)
                 res = requests.delete(url, headers=headers)
                 self.add_result(res, fixture)
+            else:
+                self.log_error("Unknown method %s in fixture %s" %
+                               (fixture['method'], fixture['name']))
+                exit(1)
+
 
     def add_result(self, res, fixture):
         self.log("status: %d" % res.status_code)
