@@ -1,0 +1,11 @@
+{
+    "fixtures": [
+	{
+	    "name": "version-info",
+	    "path": "ctrl/version-info",
+	    "override_token": "",
+	    "method": "GET",
+	    "raw": true
+	}
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "fixtures": [
+	{
+	    "name": "room-check",
+	    "path": "rooms/check/moishe-test/moishe-test",
+	    "method": "get",
+	    "raw": true
+	}
+    ]
+}

@@ -9,7 +9,11 @@
       "type": "python",
       "request": "launch",
       "program": "${file}",
-      "args": ["staging", "test.json"],
+      "args": [
+        "local",
+        "-v true",
+        "-f/Users/moishelettvin/src/daily-fixtures/fixtures/domains.json"
+      ],
       "console": "integratedTerminal",
       "justMyCode": true,
       "env": {

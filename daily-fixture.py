@@ -184,9 +184,9 @@ class FixtureRunner():
                 bearer_token = fixture['override_token']
             else:
                 if use_alt_token:
-                    bearer_token = self.api_key
-                else:
                     bearer_token = self.api_key_alt
+                else:
+                    bearer_token = self.api_key
 
             if bearer_token:
                 headers = {

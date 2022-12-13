@@ -3,8 +3,7 @@
         {
             "name": "default_domain",
             "path": "",
-            "method": "get",
-            "silent": true
+            "method": "get"
         },
         {
             "name": "domain-info",

@@ -1,0 +1,11 @@
+{
+    "fixtures": [
+	{
+	    "name": "get-token",
+	    "path": "/meeting-tokens",
+	    "data": {"properties": {}},
+	    "method": "POST"
+	}
+    ]
+}
+ 

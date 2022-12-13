@@ -1,0 +1,17 @@
+{
+    "fixtures": [
+	{
+	    "name": "create-room",
+	    "method": "POST",
+	    "raw": true,
+	    "path": "domains/dfd57b9e-e3ef-4ec2-a3d2-1faad1433b9c/room",
+	    "data": {
+		"name": "new-room",
+		"privacy": "public",
+		"properties": [],
+		"generate_name": false
+	    }
+	}
+    ]
+}
+	    
