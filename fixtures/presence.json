@@ -1,9 +1,31 @@
 {
     "fixtures": [
 	{
-	"name": "presence",
-	"path": "presence",
-	"method": "get"
+	    "name": "domain",
+	    "path": "",
+	    "method": "get"
+	},
+	{
+	    "name": "all-presence",
+	    "path": "presence",
+	    "method": "get"
+	},
+	{
+	    "name": "presence-limit",
+	    "path": "rooms/moishe-test/presence?limit=3",
+	    "method": "get",
+	    "repeat": 180,
+		"parallel": true
+	},
+	{
+	    "name": "presence-all",
+	    "path": "rooms/moishe-test/presence",
+	    "method": "get"
+	},
+	{
+	    "name": "presence-username",
+	    "path": "rooms/moishe-test/presence?userName=ML",
+	    "method": "get"
 	}
     ]
 }

@@ -1,0 +1,10 @@
+{
+    "fixtures": [
+	{
+	    "name": "create-room",
+	    "path": "/rooms",
+	    "method": "POST",
+	    "data": {}
+	}
+    ]
+}

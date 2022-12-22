@@ -3,10 +3,73 @@
         {
             "name": "all-meetings",
             "path": "meetings",
+            "query": "no_participants=true",
+            "method": "get"
+        },
+        {
+            "name": "after",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[5].start_time}",
+            "method": "get"
+        },
+        {
+            "name": "before",
+            "path": "meetings",
+            "query": "timeframe_end=${all-meetings.data[5].start_time}",
+            "method": "get"
+        },
+        {
+            "name": "in-between",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[15].start_time}&timeframe_end=${all-meetings.data[5].start_time}",
+            "method": "get"
+        },
+        {
+            "name": "all-ongoing",
+            "path": "meetings",
+            "query": "ongoing=true",
+            "method": "get"
+        },
+        {
+            "name": "after-ongoing",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[5].start_time}&ongoing=true",
+            "method": "get"
+        },
+        {
+            "name": "before-ongoing",
+            "path": "meetings",
+            "query": "timeframe_end=${all-meetings.data[5].start_time}&ongoing=true",
+            "method": "get"
+        },
+        {
+            "name": "in-between-ongoing",
+            "path": "meetings",
+            "query": "timeframe_start=${all-meetings.data[5].start_time}&timeframe_end=${all-meetings.data[15].start_time}&ongoing=true",
             "method": "get"
         }
     ],
     "unused": [
+	{
+	    "name": "one-meeting",
+	    "path": "meetings/d7e4aa3b-3902-44eb-b24d-3691696bf7bc",
+	    "method": "get"
+	},
+	{
+	    "name": "one-meeting-participants-after",
+	    "path": "meetings/d7e4aa3b-3902-44eb-b24d-3691696bf7bc/participants?starting_after=d2c1f644-d260-4cc4-a589-934302a19c74",
+	    "method": "get"
+	},
+	{
+	    "name": "one-meeting-participants-before",
+	    "path": "meetings/d7e4aa3b-3902-44eb-b24d-3691696bf7bc/participants?ending_before=OLDEST",
+	    "method": "get"
+	},
+        {
+            "name": "all-meetings",
+            "path": "meetings",
+            "method": "get"
+        },
         {
             "name": "after",
             "path": "meetings",

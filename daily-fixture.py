@@ -1,12 +1,16 @@
 #!env/bin/python
 
 import argparse
+import concurrent.futures
 import json
 import os
 import re
 import requests
 from sys import stdin, stderr
 
+
+def load_url(url, headers):
+    return requests.get(url, headers=headers)
 
 class FixtureRunner():
     prefixes = {
@@ -136,6 +140,26 @@ class FixtureRunner():
 
             seen_fixtures.add(fixture['name'])
 
+    def make_requests_in_parallel(self, c, url, headers):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
+            # Start the load operations and mark each future with its URL
+            future_to_url = {executor.submit(
+                load_url, url, headers): idx for idx in range(c)}
+            print(future_to_url)
+            for future in concurrent.futures.as_completed(future_to_url):
+                idx = future_to_url[future]
+                try:
+                    res = future.result()
+                except Exception as exc:
+                    print('%r generated an exception (%d): %s' %
+                          (url, idx, exc))
+                else:
+                    if res.status_code < 300:
+                        print('%r page is %d / len %d (%d)' %
+                              (url, res.status_code, len(res.json()), idx))
+                    else:
+                        print('%r page is %d' % (url, res.status_code))
+
     def run_fixtures(self, fixtures):
         for fixture in fixtures:
             parsed_fixture = {}
@@ -200,8 +224,17 @@ class FixtureRunner():
             fixture['method'] = fixture['method'].lower()
             if fixture['method'] == 'get':
                 self.log("get %s" % url)
-                res = requests.get(url, headers=headers)
-                self.add_result(res, fixture)
+                if 'repeat' in fixture and fixture['repeat']:
+                    c = int(fixture['repeat'])
+                    self.log("Repeating %d times" % c)
+                else:
+                    c = 1
+                if 'parallel' in fixture and fixture['parallel']:
+                    res = self.make_requests_in_parallel(c, url, headers)
+                else:
+                    for i in range(c):
+                        res = requests.get(url, headers=headers)
+                        self.add_result(res, fixture)
             elif fixture['method'] == 'post':
                 self.log("post %s with data %s" %
                          (url, json.dumps(fixture['data'])))

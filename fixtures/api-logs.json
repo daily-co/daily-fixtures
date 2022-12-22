@@ -1,0 +1,11 @@
+{
+    "fixtures": [
+        {
+	    "name": "apilogs",
+	    "path": "logs/api",
+	    "override_token": "84aee55b6eceaadd261c9573195f969b73e6d0c66caa1e67b0c6e2675ff88d94",
+	    "method": "get",
+	    "repeat": 120
+	}
+    ]
+}
